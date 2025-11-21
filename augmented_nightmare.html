@@ -1,517 +1,481 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d6d6d; -webkit-text-stroke: #6d6d6d}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6b0001; -webkit-text-stroke: #6b0001}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #fb0007; -webkit-text-stroke: #fb0007}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #0000ff; -webkit-text-stroke: #0000ff}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; -webkit-text-stroke: #000000}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #4d5055; -webkit-text-stroke: #4d5055}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #093c94; -webkit-text-stroke: #093c94}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; -webkit-text-stroke: #000000; min-height: 16.0px}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #18702b; -webkit-text-stroke: #18702b}
-    span.s1 {font-kerning: none; background-color: #ecf1f7}
-    span.s2 {font-kerning: none; color: #fb0007; background-color: #ecf1f7; -webkit-text-stroke: 0px #fb0007}
-    span.s3 {font-kerning: none; color: #2a2a2a; background-color: #ecf1f7; -webkit-text-stroke: 0px #2a2a2a}
-    span.s4 {font-kerning: none; color: #000000; background-color: #ecf1f7; -webkit-text-stroke: 0px #000000}
-    span.s5 {font-kerning: none; color: #0000ff; background-color: #ecf1f7; -webkit-text-stroke: 0px #0000ff}
-    span.s6 {font-kerning: none; color: #6b0001; background-color: #ecf1f7; -webkit-text-stroke: 0px #6b0001}
-    span.s7 {font-kerning: none; color: #093c94; background-color: #ecf1f7; -webkit-text-stroke: 0px #093c94}
-    span.s8 {font-kerning: none; color: #18702b; background-color: #ecf1f7; -webkit-text-stroke: 0px #18702b}
-    span.s9 {font-kerning: none; color: #137646; background-color: #ecf1f7; -webkit-text-stroke: 0px #137646}
-    span.s10 {font-kerning: none; color: #4d5055; background-color: #ecf1f7; -webkit-text-stroke: 0px #4d5055}
-    span.s11 {font-kerning: none; color: #6f0ec3; background-color: #ecf1f7; -webkit-text-stroke: 0px #6f0ec3}
-    span.s12 {font-kerning: none}
-    span.s13 {font-kerning: none; color: #0e6e6d; background-color: #ecf1f7; -webkit-text-stroke: 0px #0e6e6d}
-    span.s14 {font-kerning: none; color: #a4450b; background-color: #ecf1f7; -webkit-text-stroke: 0px #a4450b}
-    span.s15 {font-kerning: none; color: #2316b2; background-color: #ecf1f7; -webkit-text-stroke: 0px #2316b2}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Augmented Nightmare</title>
+    <!-- Load Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the horror theme */
+        body {
+            background-color: #0d0d0d;
+            font-family: 'Inter', sans-serif;
+            color: #d1d5db; /* Light gray text */
+            overflow: hidden; /* Prevent scrolling */
+        }
+        /* The video element is hidden, only used to feed the canvas */
+        #video-feed {
+            display: none;
+        }
+        /* Canvas for drawing the processed video feed and applying filters */
+        #ar-canvas {
+            /* Glitch/Horror effect styling */
+            filter: grayscale(100%) contrast(150%);
+            border: 4px solid #cc3333; /* Sinister border */
+            box-shadow: 0 0 20px rgba(204, 51, 51, 0.7); /* Red glow */
+            cursor: pointer;
+        }
+        .glitch-text {
+            font-family: monospace;
+            text-shadow: 1px 1px 0 #cc3333, -1px -1px 0 #33cccc;
+            transition: opacity 0.3s ease-in-out;
+            animation: flicker 0.15s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            50% { opacity: 0.9; }
+            100% { opacity: 1; }
+        }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s1">html</span><span class="s4"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s5">"en"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s5">"UTF-8"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">title</span><span class="s3">&gt;</span><span class="s1">Augmented Nightmare</span><span class="s3">&lt;/</span><span class="s6">title</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Load Tailwind CSS --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* Custom styles for the horror theme */</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">body</span><span class="s1"> {</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s7">#0d0d0d</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-family:</span><span class="s1"> </span><span class="s8">'Inter'</span><span class="s1">, </span><span class="s7">sans-serif</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s4"> </span><span class="s7">#d1d5db</span><span class="s4">; </span><span class="s1">/* Light gray text */</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">overflow:</span><span class="s4"> </span><span class="s7">hidden</span><span class="s4">; </span><span class="s1">/* Prevent scrolling */</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* The video element is hidden, only used to feed the canvas */</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">#video-feed</span><span class="s4"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display:</span><span class="s1"> </span><span class="s7">none</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* Canvas for drawing the processed video feed and applying filters */</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">#ar-canvas</span><span class="s1"> {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">/* Glitch/Horror effect styling */</span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">filter:</span><span class="s4"> </span><span class="s1">grayscale(</span><span class="s9">100%</span><span class="s1">)</span><span class="s4"> </span><span class="s1">contrast(</span><span class="s9">150%</span><span class="s1">)</span><span class="s4">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">border:</span><span class="s4"> </span><span class="s9">4px</span><span class="s4"> </span><span class="s7">solid</span><span class="s4"> </span><span class="s7">#cc3333</span><span class="s4">; </span><span class="s1">/* Sinister border */</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">box-shadow:</span><span class="s1"> </span><span class="s9">0</span><span class="s1"> </span><span class="s9">0</span><span class="s1"> </span><span class="s9">20px</span><span class="s1"> </span><span class="s7">rgba(</span><span class="s9">204</span><span class="s1">, </span><span class="s9">51</span><span class="s1">, </span><span class="s9">51</span><span class="s1">, </span><span class="s9">0.7</span><span class="s7">)</span><span class="s1">; </span><span class="s10">/* Red glow */</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor:</span><span class="s1"> </span><span class="s7">pointer</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.glitch-text</span><span class="s4"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-family:</span><span class="s1"> </span><span class="s7">monospace</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">text-shadow:</span><span class="s1"> </span><span class="s9">1px</span><span class="s1"> </span><span class="s9">1px</span><span class="s1"> </span><span class="s9">0</span><span class="s1"> </span><span class="s7">#cc3333</span><span class="s1">, </span><span class="s9">-1px</span><span class="s1"> </span><span class="s9">-1px</span><span class="s1"> </span><span class="s9">0</span><span class="s1"> </span><span class="s7">#33cccc</span><span class="s1">;</span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s4"> </span><span class="s1">opacity</span><span class="s4"> </span><span class="s9">0.3s</span><span class="s4"> </span><span class="s1">ease-in-out</span><span class="s4">;</span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">animation:</span><span class="s4"> </span><span class="s1">flicker</span><span class="s4"> </span><span class="s9">0.15s</span><span class="s4"> </span><span class="s1">infinite</span><span class="s4"> </span><span class="s1">alternate</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">@keyframes</span><span class="s1"> </span><span class="s7">flicker</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s9">0%</span><span class="s1"> { </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s9">0.98</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s9">50%</span><span class="s1"> { </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s9">0.9</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s9">100%</span><span class="s1"> { </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s9">1</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s3">&lt;</span><span class="s6">body</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"min-h-screen flex flex-col items-center justify-center p-4"</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Main Application Container --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"app"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full max-w-xl flex flex-col items-center space-y-4"</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">h1</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-3xl font-bold text-red-500 glitch-text text-center"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>[ Signal Scanner ]</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">h1</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Video and Canvas Container --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-2xl"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Hidden Video Stream Source --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">video</span><span class="s4"> </span><span class="s1">id</span><span class="s3">=</span><span class="s5">"video-feed"</span><span class="s4"> </span><span class="s1">playsinline</span><span class="s4"> </span><span class="s1">autoplay</span><span class="s4"> </span><span class="s1">muted</span><span class="s3">&gt;&lt;/</span><span class="s6">video</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Canvas where the processed feed and clues are drawn --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">canvas</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"ar-canvas"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full h-full rounded-lg transition-all duration-300"</span><span class="s3">&gt;&lt;/</span><span class="s6">canvas</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Message Overlay --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"message-box"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center p-4 text-center rounded-lg transition-opacity duration-500"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"message-text"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xl font-mono text-red-400"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>Initializing scanner... Grant camera access to begin the hunt.</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Controls and Status --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"status"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-sm font-mono text-gray-500"</span><span class="s3">&gt;</span><span class="s4">Status: Awaiting connection.</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- LLM Feature 1: Clue Generation Control --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex flex-col items-center space-y-2 w-full"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"generate-clue-button"</span><span class="s4"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-150 transform hover:scale-105 active:scale-95 disabled:bg-gray-800 disabled:opacity-50"</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s2">disabled</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>Generate Next Mystery Clue ✨</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"clue-loading"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-sm font-mono text-red-400 hidden animate-pulse"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>Generating cryptic signal...</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"scan-button"</span><span class="s4"><span class="Apple-converted-space"> </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-150 transform hover:scale-105 active:scale-95 disabled:bg-gray-600 disabled:shadow-none"</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">disabled</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>SCAN FOR CLUES</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs text-gray-700 text-center mt-2"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>Tap the scan button when you think you've found the location.</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> video = document.getElementById(</span><span class="s8">'video-feed'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> canvas = document.getElementById(</span><span class="s8">'ar-canvas'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> ctx = canvas.getContext(</span><span class="s8">'2d'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> statusEl = document.getElementById(</span><span class="s8">'status'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> scanButton = document.getElementById(</span><span class="s8">'scan-button'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> messageBox = document.getElementById(</span><span class="s8">'message-box'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> messageText = document.getElementById(</span><span class="s8">'message-text'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> generateClueButton = document.getElementById(</span><span class="s8">'generate-clue-button'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> clueLoadingEl = document.getElementById(</span><span class="s8">'clue-loading'</span><span class="s1">);</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Global API Configuration (Must be included)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s1"> apiKey = </span><span class="s8">""</span><span class="s1">;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s4"> textApiUrl = </span><span class="s1">`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=</span><span class="s4">${apiKey}</span><span class="s1">`</span><span class="s4">;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s11">const</span><span class="s4"> ttsApiUrl = </span><span class="s1">`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=</span><span class="s4">${apiKey}</span><span class="s1">`</span><span class="s4">;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">let</span><span class="s1"> stream = </span><span class="s11">null</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">let</span><span class="s1"> isClueMode = </span><span class="s11">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">let</span><span class="s1"> clueTimer = </span><span class="s11">null</span><span class="s1">;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s11">let</span><span class="s4"> currentClue = </span><span class="s1">"INIT: THE PATH IS GUARDED BY THE OLDEST CLOCK."</span><span class="s4">;<span class="Apple-converted-space"> </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s11">let</span><span class="s4"> currentWarning = </span><span class="s1">"A signal is detected. Proceed with extreme caution."</span><span class="s4">;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- LLM Utility Functions ---</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Utility for converting base64 to ArrayBuffer (for TTS)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">function</span><span class="s1"> base64ToArrayBuffer(base64) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> binaryString = atob(base64);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> len = binaryString.length;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> bytes = </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Uint8Array</span><span class="s1">(len);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> i = </span><span class="s14">0</span><span class="s1">; i &lt; len; i++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>bytes[i] = binaryString.charCodeAt(i);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">return</span><span class="s1"> bytes.buffer;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Utility for converting PCM audio data to WAV format (for TTS)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">function</span><span class="s1"> pcmToWav(pcmData, sampleRate) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> numChannels = </span><span class="s14">1</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> bitsPerSample = </span><span class="s14">16</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> byteRate = sampleRate * numChannels * (bitsPerSample / </span><span class="s14">8</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> blockAlign = numChannels * (bitsPerSample / </span><span class="s14">8</span><span class="s1">);</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> wavLength = </span><span class="s14">44</span><span class="s1"> + pcmData.byteLength;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> buffer = </span><span class="s11">new</span><span class="s1"> </span><span class="s13">ArrayBuffer</span><span class="s1">(wavLength);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> view = </span><span class="s11">new</span><span class="s1"> </span><span class="s13">DataView</span><span class="s1">(buffer);</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">let</span><span class="s1"> offset = </span><span class="s14">0</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// RIFF identifier</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, </span><span class="s15">0x52494646</span><span class="s1">, </span><span class="s11">false</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// file length</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, wavLength - </span><span class="s14">8</span><span class="s1">, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s10">// RIFF type</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, </span><span class="s15">0x57415645</span><span class="s1">, </span><span class="s11">false</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// format chunk identifier</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, </span><span class="s15">0x666d7420</span><span class="s1">, </span><span class="s11">false</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// format chunk length</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, </span><span class="s14">16</span><span class="s1">, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// sample format (1 = PCM)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint16(offset, </span><span class="s14">1</span><span class="s1">, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">2</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// number of channels</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint16(offset, numChannels, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">2</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// sample rate</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, sampleRate, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s10">// byte rate</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, byteRate, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// block align</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint16(offset, blockAlign, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">2</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// bits per sample</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint16(offset, bitsPerSample, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">2</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// data chunk identifier</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, </span><span class="s15">0x64617461</span><span class="s1">, </span><span class="s11">false</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// data chunk length</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>view.setUint32(offset, pcmData.byteLength, </span><span class="s11">true</span><span class="s1">); offset += </span><span class="s14">4</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Write PCM data</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> pcmView = </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Int16Array</span><span class="s1">(pcmData.buffer);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> i = </span><span class="s14">0</span><span class="s1">; i &lt; pcmView.length; i++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>view.setInt16(offset, pcmView[i], </span><span class="s11">true</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>offset += </span><span class="s14">2</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">return</span><span class="s1"> </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Blob</span><span class="s1">([buffer], { type: </span><span class="s8">'audio/wav'</span><span class="s1"> });</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Exponential Backoff Fetch Wrapper</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">async</span><span class="s1"> </span><span class="s11">function</span><span class="s1"> fetchWithBackoff(url, options) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> maxRetries = </span><span class="s14">5</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">let</span><span class="s1"> delay = </span><span class="s14">1000</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> i = </span><span class="s14">0</span><span class="s1">; i &lt; maxRetries; i++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">try</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> response = </span><span class="s11">await</span><span class="s1"> fetch(url, options);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">if</span><span class="s1"> (!response.ok) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s11">if</span><span class="s1"> (response.status === </span><span class="s14">429</span><span class="s1"> &amp;&amp; i &lt; maxRetries - </span><span class="s14">1</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>console.warn(</span><span class="s8">`Rate limit exceeded (429). Retrying in </span><span class="s1">${delay / </span><span class="s14">1000</span><span class="s1">}</span><span class="s8">s...`</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span></span><span class="s11">await</span><span class="s1"> </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Promise</span><span class="s1">(resolve =&gt; setTimeout(resolve, delay));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>delay *= </span><span class="s14">2</span><span class="s1">; </span><span class="s10">// Exponential backoff</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span></span><span class="s11">continue</span><span class="s1">; </span><span class="s10">// Retry request</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s11">throw</span><span class="s1"> </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Error</span><span class="s1">(</span><span class="s8">`API request failed with status: </span><span class="s1">${response.status}</span><span class="s8"> </span><span class="s1">${response.statusText}</span><span class="s8">`</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">return</span><span class="s1"> response;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s11">catch</span><span class="s1"> (error) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">if</span><span class="s1"> (i === maxRetries - </span><span class="s14">1</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>console.error(</span><span class="s8">"API call failed after max retries:"</span><span class="s1">, error);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s11">throw</span><span class="s1"> error;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s1">// For network errors, wait and retry</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>console.warn(</span><span class="s8">`Network error. Retrying in </span><span class="s1">${delay / </span><span class="s14">1000</span><span class="s1">}</span><span class="s8">s...`</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">await</span><span class="s1"> </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Promise</span><span class="s1">(resolve =&gt; setTimeout(resolve, delay));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>delay *= </span><span class="s14">2</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- Camera Setup ---</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Function to handle retries for camera access with exponential backoff</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">async</span><span class="s1"> </span><span class="s11">function</span><span class="s1"> setupCamera() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>messageText.textContent = </span><span class="s8">'Requesting camera permissions...'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> maxRetries = </span><span class="s14">5</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">let</span><span class="s1"> delay = </span><span class="s14">1000</span><span class="s1">;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> i = </span><span class="s14">0</span><span class="s1">; i &lt; maxRetries; i++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">try</span><span class="s1"> {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s1">// Request user-facing camera if available</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>stream = </span><span class="s11">await</span><span class="s1"> navigator.mediaDevices.getUserMedia({<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>video: { facingMode: </span><span class="s8">'environment'</span><span class="s1"> }<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>video.srcObject = stream;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>video.onloadedmetadata = () =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>video.play();</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s1">// Set canvas dimensions to match video stream</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>canvas.width = video.videoWidth;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>canvas.height = video.videoHeight;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>messageBox.style.opacity = </span><span class="s8">'0'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>setTimeout(() =&gt; messageBox.style.display = </span><span class="s8">'none'</span><span class="s1">, </span><span class="s14">500</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>statusEl.textContent = </span><span class="s8">'Status: Active Feed. Standby.'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>scanButton.disabled = </span><span class="s11">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>generateClueButton.disabled = </span><span class="s11">false</span><span class="s1">; </span><span class="s10">// Enable LLM feature</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>gameLoop(); </span><span class="s10">// Start the main loop</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>};</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s11">return</span><span class="s4">; </span><span class="s1">// Success, exit function</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s11">catch</span><span class="s1"> (err) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>console.error(</span><span class="s8">`Camera access attempt </span><span class="s1">${i + </span><span class="s14">1</span><span class="s1">}</span><span class="s8"> failed:`</span><span class="s1">, err);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">if</span><span class="s1"> (i === maxRetries - </span><span class="s14">1</span><span class="s1">) {</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                        </span>messageText.textContent = </span><span class="s1">'ERROR: Could not access camera. Ensure permissions are granted.'</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>statusEl.textContent = </span><span class="s8">'Status: ERROR'</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s11">return</span><span class="s4">; </span><span class="s1">// Failed after all retries</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>messageText.textContent = </span><span class="s8">`Camera access failed. Retrying in </span><span class="s1">${delay / </span><span class="s14">1000</span><span class="s1">}</span><span class="s8">s...`</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">await</span><span class="s1"> </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Promise</span><span class="s1">(resolve =&gt; setTimeout(resolve, delay));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>delay *= </span><span class="s14">2</span><span class="s1">; </span><span class="s10">// Exponential backoff</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">function</span><span class="s1"> stopCamera() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">if</span><span class="s1"> (stream) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>stream.getTracks().forEach(track =&gt; track.stop());</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>stream = </span><span class="s11">null</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>statusEl.textContent = </span><span class="s8">'Status: Disconnected.'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>scanButton.disabled = </span><span class="s11">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>generateClueButton.disabled = </span><span class="s11">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- Core Game Loop ---</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">function</span><span class="s1"> gameLoop() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">if</span><span class="s1"> (!video.videoWidth) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>requestAnimationFrame(gameLoop);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">return</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// 1. Draw the video frame onto the canvas</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>ctx.drawImage(video, </span><span class="s14">0</span><span class="s1">, </span><span class="s14">0</span><span class="s1">, canvas.width, canvas.height);</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// 2. Apply Glitch Effect (Simulated via image data manipulation)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">if</span><span class="s1"> (!isClueMode) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> imageData = ctx.getImageData(</span><span class="s14">0</span><span class="s1">, </span><span class="s14">0</span><span class="s1">, canvas.width, canvas.height);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> data = imageData.data;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> i = </span><span class="s14">0</span><span class="s1">; i &lt; data.length; i += </span><span class="s14">4</span><span class="s1">) {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s1">// Small random noise (darker pixels for grain)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">if</span><span class="s1"> (</span><span class="s13">Math</span><span class="s1">.random() &lt; </span><span class="s14">0.01</span><span class="s1">) {<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>data[i] = </span><span class="s13">Math</span><span class="s1">.max(</span><span class="s14">0</span><span class="s1">, data[i] - </span><span class="s14">50</span><span class="s1">);<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>data[i + </span><span class="s14">1</span><span class="s1">] = </span><span class="s13">Math</span><span class="s1">.max(</span><span class="s14">0</span><span class="s1">, data[i + </span><span class="s14">1</span><span class="s1">] - </span><span class="s14">50</span><span class="s1">);<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>data[i + </span><span class="s14">2</span><span class="s1">] = </span><span class="s13">Math</span><span class="s1">.max(</span><span class="s14">0</span><span class="s1">, data[i + </span><span class="s14">2</span><span class="s1">] - </span><span class="s14">50</span><span class="s1">);<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>ctx.putImageData(imageData, </span><span class="s14">0</span><span class="s1">, </span><span class="s14">0</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// 3. Draw Clue Overlay if in Clue Mode</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">if</span><span class="s1"> (isClueMode) {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Enhance the spooky filter dynamically in Clue Mode</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span>canvas.style.filter = </span><span class="s1">'grayscale(100%) contrast(300%) hue-rotate(180deg)'</span><span class="s4">; </span><span class="s10">// Hyper-distorted</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Draw the Hidden Clue Text (now dynamic)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>ctx.fillStyle = </span><span class="s8">'rgba(255, 0, 0, 0.9)'</span><span class="s1">; </span><span class="s10">// Bright Red Clue</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>ctx.shadowColor = </span><span class="s8">'red'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>ctx.shadowBlur = </span><span class="s14">10</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span>ctx.font = </span><span class="s8">'bold 32px monospace'</span><span class="s4">; </span><span class="s1">// Slightly smaller font for long clues</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>ctx.textAlign = </span><span class="s8">'center'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>ctx.textBaseline = </span><span class="s8">'middle'</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Use the dynamically generated clue text</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> clueText = currentClue;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Handle wrapping for long clues</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> words = clueText.split(</span><span class="s8">' '</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> maxWidth = canvas.width * </span><span class="s14">0.8</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">let</span><span class="s1"> line = </span><span class="s8">''</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> lines = [];</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Simple text wrapping logic</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> n = </span><span class="s14">0</span><span class="s1">; n &lt; words.length; n++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> testLine = line + words[n] + </span><span class="s8">' '</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> metrics = ctx.measureText(testLine);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> testWidth = metrics.width;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">if</span><span class="s1"> (testWidth &gt; maxWidth &amp;&amp; n &gt; </span><span class="s14">0</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>lines.push(line);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>line = words[n] + </span><span class="s8">' '</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>} </span><span class="s11">else</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>line = testLine;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>lines.push(line);</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> lineHeight = </span><span class="s14">40</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">let</span><span class="s1"> y = canvas.height / </span><span class="s14">2</span><span class="s1"> - (lines.length / </span><span class="s14">2</span><span class="s1">) * lineHeight;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">for</span><span class="s1"> (</span><span class="s11">let</span><span class="s1"> i = </span><span class="s14">0</span><span class="s1">; i &lt; lines.length; i++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> offsetX = </span><span class="s13">Math</span><span class="s1">.random() * </span><span class="s14">10</span><span class="s1"> - </span><span class="s14">5</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> offsetY = </span><span class="s13">Math</span><span class="s1">.random() * </span><span class="s14">10</span><span class="s1"> - </span><span class="s14">5</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>ctx.fillText(lines[i], canvas.width / </span><span class="s14">2</span><span class="s1"> + offsetX, y + offsetY);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>y += lineHeight;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Draw a flashing border or indicator</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">if</span><span class="s1"> (</span><span class="s13">Math</span><span class="s1">.random() &lt; </span><span class="s14">0.5</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>ctx.strokeStyle = </span><span class="s8">'red'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>ctx.lineWidth = </span><span class="s14">5</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>ctx.strokeRect(</span><span class="s14">20</span><span class="s1">, </span><span class="s14">20</span><span class="s1">, canvas.width - </span><span class="s14">40</span><span class="s1">, canvas.height - </span><span class="s14">40</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>} </span><span class="s11">else</span><span class="s1"> {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Reset filter for normal view</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>canvas.style.filter = </span><span class="s8">'grayscale(100%) contrast(150%)'</span><span class="s1">;<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>requestAnimationFrame(gameLoop);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- LLM Feature 1: Dynamic Clue Generation (Text) ---</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">async</span><span class="s1"> </span><span class="s11">function</span><span class="s1"> generateMysteryClue() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>generateClueButton.disabled = </span><span class="s11">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>scanButton.disabled = </span><span class="s11">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>clueLoadingEl.classList.remove(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Possible themes/locations for a school ARG</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s4"> themes = [</span><span class="s1">"library archives"</span><span class="s4">, </span><span class="s1">"old chemistry lab"</span><span class="s4">, </span><span class="s1">"janitor's closet"</span><span class="s4">, </span><span class="s1">"boiler room access"</span><span class="s4">, </span><span class="s1">"empty auditorium"</span><span class="s4">, </span><span class="s1">"behind the trophy case"</span><span class="s4">, </span><span class="s1">"faculty lounge fridge"</span><span class="s4">];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> theme = themes[</span><span class="s13">Math</span><span class="s1">.floor(</span><span class="s13">Math</span><span class="s1">.random() * themes.length)];</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s4"> systemPrompt = </span><span class="s1">"You are an ancient, corrupted AI transmitting fragmented data. Generate a single, extremely cryptic and unsettling scavenger hunt clue (10-15 words max) related to a 'school ARG' and the theme provided. The clue must sound like a corrupted data transmission. Do not use the words 'clue' or 'theme'."</span><span class="s4">;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s4"> userQuery = </span><span class="s1">`Generate a cryptic message about the location: </span><span class="s4">${theme}</span><span class="s1">`</span><span class="s4">;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> payload = {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>contents: [{ parts: [{ text: userQuery }] }],</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>systemInstruction: { parts: [{ text: systemPrompt }] },</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">try</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> response = </span><span class="s11">await</span><span class="s1"> fetchWithBackoff(textApiUrl, {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>method: </span><span class="s8">'POST'</span><span class="s1">,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>headers: { </span><span class="s8">'Content-Type'</span><span class="s1">: </span><span class="s8">'application/json'</span><span class="s1"> },</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>body: </span><span class="s13">JSON</span><span class="s1">.stringify(payload)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> result = </span><span class="s11">await</span><span class="s1"> response.json();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> generatedText = result?.candidates?.[</span><span class="s14">0</span><span class="s1">]?.content?.parts?.[</span><span class="s14">0</span><span class="s1">]?.text || </span><span class="s8">"ERROR: SIGNAL LOST."</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">// Update both the visual clue and the audio warning text</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>currentClue = generatedText.toUpperCase(); </span><span class="s10">// Ensure uppercase for that scanner look</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>currentWarning = </span><span class="s8">`New signal detected. Origin point: </span><span class="s1">${theme}</span><span class="s8">.`</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span>statusEl.textContent = </span><span class="s1">'Status: New Clue Generated. Proceed with caution.'</span><span class="s4">;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>} </span><span class="s11">catch</span><span class="s1"> (error) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>console.error(</span><span class="s8">"Gemini Text API Error:"</span><span class="s1">, error);</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span>currentClue = </span><span class="s1">"!!! SIGNAL CORRUPTION. TRY AGAIN. ERROR 404 !!!"</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>currentWarning = </span><span class="s8">"Signal corruption detected."</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>statusEl.textContent = </span><span class="s8">'Status: CLUE ERROR. Using fallback.'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>} </span><span class="s11">finally</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>generateClueButton.disabled = </span><span class="s11">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>scanButton.disabled = </span><span class="s11">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>clueLoadingEl.classList.add(</span><span class="s8">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- LLM Feature 2: Audio Jumpscare/Warning (TTS) ---</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">async</span><span class="s1"> </span><span class="s11">function</span><span class="s1"> playTTSWarning() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> textToSpeak = currentWarning;<span class="Apple-converted-space"> </span></span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Use a firm voice and request a whisper/eerie tone</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">const</span><span class="s1"> ttsPayload = {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>contents: [{</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                    </span>parts: [{ text: </span><span class="s1">`Say in a fast, low, heavily filtered, and slightly glitching whisper: </span><span class="s4">${textToSpeak}</span><span class="s1">`</span><span class="s4"> }]</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}],</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>generationConfig: {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>responseModalities: [</span><span class="s8">"AUDIO"</span><span class="s1">],</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>speechConfig: {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>voiceConfig: {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>prebuiltVoiceConfig: { voiceName: </span><span class="s8">"Kore"</span><span class="s1"> }<span class="Apple-converted-space"> </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">try</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> response = </span><span class="s11">await</span><span class="s1"> fetchWithBackoff(ttsApiUrl, {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>method: </span><span class="s8">'POST'</span><span class="s1">,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>headers: { </span><span class="s8">'Content-Type'</span><span class="s1">: </span><span class="s8">'application/json'</span><span class="s1"> },</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>body: </span><span class="s13">JSON</span><span class="s1">.stringify(ttsPayload)</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> result = </span><span class="s11">await</span><span class="s1"> response.json();</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> part = result?.candidates?.[</span><span class="s14">0</span><span class="s1">]?.content?.parts?.[</span><span class="s14">0</span><span class="s1">];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> audioData = part?.inlineData?.data;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">const</span><span class="s1"> mimeType = part?.inlineData?.mimeType;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s11">if</span><span class="s1"> (audioData &amp;&amp; mimeType &amp;&amp; mimeType.startsWith(</span><span class="s8">"audio/"</span><span class="s1">)) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> match = mimeType.match(</span><span class="s6">/rate=(\d+)/</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> sampleRate = match ? parseInt(match[</span><span class="s14">1</span><span class="s1">], </span><span class="s14">10</span><span class="s1">) : </span><span class="s14">24000</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> pcmData = base64ToArrayBuffer(audioData);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> pcm16 = </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Int16Array</span><span class="s1">(pcmData);</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> wavBlob = pcmToWav(pcm16, sampleRate);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> audioUrl = </span><span class="s13">URL</span><span class="s1">.createObjectURL(wavBlob);</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">                    </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s11">const</span><span class="s1"> audio = </span><span class="s11">new</span><span class="s1"> </span><span class="s13">Audio</span><span class="s1">(audioUrl);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>audio.play().</span><span class="s11">catch</span><span class="s1">(e =&gt; console.error(</span><span class="s8">"Audio play failed:"</span><span class="s1">, e));</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>} </span><span class="s11">else</span><span class="s1"> {</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                    </span>console.warn(</span><span class="s1">"TTS API did not return valid audio data."</span><span class="s4">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>} </span><span class="s11">catch</span><span class="s1"> (error) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>console.error(</span><span class="s8">"Gemini TTS API Error:"</span><span class="s1">, error);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- Event Handlers ---</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s11">function</span><span class="s1"> triggerClueMode() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">if</span><span class="s1"> (isClueMode) </span><span class="s11">return</span><span class="s1">;</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Play the TTS warning immediately</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>playTTSWarning();<span class="Apple-converted-space"> </span></span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>isClueMode = </span><span class="s11">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>scanButton.disabled = </span><span class="s11">true</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>generateClueButton.disabled = </span><span class="s11">true</span><span class="s1">; </span><span class="s10">// Disable LLM feature while scanning</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>scanButton.textContent = </span><span class="s8">'SIGNAL DETECTED... WARNING!'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>statusEl.textContent = </span><span class="s8">'Status: CLUE ACTIVE! MEMORIZE!'</span><span class="s1">;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Clue is visible for 5 seconds</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>clueTimer = setTimeout(() =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>isClueMode = </span><span class="s11">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>scanButton.disabled = </span><span class="s11">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>generateClueButton.disabled = </span><span class="s11">false</span><span class="s1">; </span><span class="s10">// Re-enable LLM feature</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>scanButton.textContent = </span><span class="s8">'SCAN FOR CLUES'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>statusEl.textContent = </span><span class="s8">'Status: Active Feed. Standby.'</span><span class="s1">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>}, </span><span class="s14">5000</span><span class="s4">); </span><span class="s1">// Clue lasts 5 seconds</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>scanButton.addEventListener(</span><span class="s8">'click'</span><span class="s1">, triggerClueMode);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>generateClueButton.addEventListener(</span><span class="s8">'click'</span><span class="s1">, generateMysteryClue);</span></p>
-<p class="p8"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// --- Initialization ---</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>window.onload = setupCamera;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>window.onbeforeunload = stopCamera;</span></p>
-<p class="p8"><span class="s12"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Main Application Container -->
+    <div id="app" class="w-full max-w-xl flex flex-col items-center space-y-4">
+
+        <h1 class="text-3xl font-bold text-red-500 glitch-text text-center">
+            [ Signal Scanner ]
+        </h1>
+
+        <!-- Video and Canvas Container -->
+        <div class="relative w-full aspect-[4/3] rounded-lg overflow-hidden shadow-2xl">
+            <!-- Hidden Video Stream Source -->
+            <video id="video-feed" playsinline autoplay muted></video>
+            <!-- Canvas where the processed feed and clues are drawn -->
+            <canvas id="ar-canvas" class="w-full h-full rounded-lg transition-all duration-300"></canvas>
+            
+            <!-- Message Overlay -->
+            <div id="message-box" class="absolute inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center p-4 text-center rounded-lg transition-opacity duration-500">
+                <p id="message-text" class="text-xl font-mono text-red-400">
+                    Initializing scanner... Grant camera access to begin the hunt.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Controls and Status -->
+        <p id="status" class="text-sm font-mono text-gray-500">Status: Awaiting connection.</p>
+
+        <!-- LLM Feature 1: Clue Generation Control -->
+        <div class="flex flex-col items-center space-y-2 w-full">
+            <button id="generate-clue-button" 
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition duration-150 transform hover:scale-105 active:scale-95 disabled:bg-gray-800 disabled:opacity-50"
+                    disabled>
+                Generate Next Mystery Clue ✨
+            </button>
+            <div id="clue-loading" class="text-sm font-mono text-red-400 hidden animate-pulse">
+                Generating cryptic signal...
+            </div>
+        </div>
+
+        <button id="scan-button" 
+                class="bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-150 transform hover:scale-105 active:scale-95 disabled:bg-gray-600 disabled:shadow-none"
+                disabled>
+            SCAN FOR CLUES
+        </button>
+        
+        <p class="text-xs text-gray-700 text-center mt-2">
+            Tap the scan button when you think you've found the location.
+        </p>
+
+    </div>
+
+    <script>
+        const video = document.getElementById('video-feed');
+        const canvas = document.getElementById('ar-canvas');
+        const ctx = canvas.getContext('2d');
+        const statusEl = document.getElementById('status');
+        const scanButton = document.getElementById('scan-button');
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+        const generateClueButton = document.getElementById('generate-clue-button');
+        const clueLoadingEl = document.getElementById('clue-loading');
+
+        // Global API Configuration (Must be included)
+        const apiKey = "";
+        const textApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+        let stream = null;
+        let isClueMode = false;
+        let clueTimer = null;
+        let currentClue = "INIT: THE PATH IS GUARDED BY THE OLDEST CLOCK."; 
+        let currentWarning = "A signal is detected. Proceed with extreme caution.";
+
+        // --- LLM Utility Functions ---
+
+        // Utility for converting base64 to ArrayBuffer (for TTS)
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Utility for converting PCM audio data to WAV format (for TTS)
+        function pcmToWav(pcmData, sampleRate) {
+            const numChannels = 1;
+            const bitsPerSample = 16;
+            const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+            const blockAlign = numChannels * (bitsPerSample / 8);
+            
+            const wavLength = 44 + pcmData.byteLength;
+            const buffer = new ArrayBuffer(wavLength);
+            const view = new DataView(buffer);
+            
+            let offset = 0;
+            
+            // RIFF identifier
+            view.setUint32(offset, 0x52494646, false); offset += 4;
+            // file length
+            view.setUint32(offset, wavLength - 8, true); offset += 4;
+            // RIFF type
+            view.setUint32(offset, 0x57415645, false); offset += 4;
+            
+            // format chunk identifier
+            view.setUint32(offset, 0x666d7420, false); offset += 4;
+            // format chunk length
+            view.setUint32(offset, 16, true); offset += 4;
+            // sample format (1 = PCM)
+            view.setUint16(offset, 1, true); offset += 2;
+            // number of channels
+            view.setUint16(offset, numChannels, true); offset += 2;
+            // sample rate
+            view.setUint32(offset, sampleRate, true); offset += 4;
+            // byte rate
+            view.setUint32(offset, byteRate, true); offset += 4;
+            // block align
+            view.setUint16(offset, blockAlign, true); offset += 2;
+            // bits per sample
+            view.setUint16(offset, bitsPerSample, true); offset += 2;
+            
+            // data chunk identifier
+            view.setUint32(offset, 0x64617461, false); offset += 4;
+            // data chunk length
+            view.setUint32(offset, pcmData.byteLength, true); offset += 4;
+            
+            // Write PCM data
+            const pcmView = new Int16Array(pcmData.buffer);
+            for (let i = 0; i < pcmView.length; i++) {
+                view.setInt16(offset, pcmView[i], true);
+                offset += 2;
+            }
+            
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        // Exponential Backoff Fetch Wrapper
+        async function fetchWithBackoff(url, options) {
+            const maxRetries = 5;
+            let delay = 1000;
+            
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        if (response.status === 429 && i < maxRetries - 1) {
+                            console.warn(`Rate limit exceeded (429). Retrying in ${delay / 1000}s...`);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2; // Exponential backoff
+                            continue; // Retry request
+                        }
+                        throw new Error(`API request failed with status: ${response.status} ${response.statusText}`);
+                    }
+                    return response;
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        console.error("API call failed after max retries:", error);
+                        throw error;
+                    }
+                    // For network errors, wait and retry
+                    console.warn(`Network error. Retrying in ${delay / 1000}s...`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // --- Camera Setup ---
+
+        // Function to handle retries for camera access with exponential backoff
+        async function setupCamera() {
+            messageText.textContent = 'Requesting camera permissions...';
+            const maxRetries = 5;
+            let delay = 1000;
+
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    // Request user-facing camera if available
+                    stream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { facingMode: 'environment' } 
+                    });
+                    video.srcObject = stream;
+                    video.onloadedmetadata = () => {
+                        video.play();
+                        // Set canvas dimensions to match video stream
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+                        messageBox.style.opacity = '0';
+                        setTimeout(() => messageBox.style.display = 'none', 500);
+                        statusEl.textContent = 'Status: Active Feed. Standby.';
+                        scanButton.disabled = false;
+                        generateClueButton.disabled = false; // Enable LLM feature
+                        gameLoop(); // Start the main loop
+                    };
+                    return; // Success, exit function
+                } catch (err) {
+                    console.error(`Camera access attempt ${i + 1} failed:`, err);
+                    if (i === maxRetries - 1) {
+                        messageText.textContent = 'ERROR: Could not access camera. Ensure permissions are granted.';
+                        statusEl.textContent = 'Status: ERROR';
+                        return; // Failed after all retries
+                    }
+                    messageText.textContent = `Camera access failed. Retrying in ${delay / 1000}s...`;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // Exponential backoff
+                }
+            }
+        }
+
+        function stopCamera() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+            statusEl.textContent = 'Status: Disconnected.';
+            scanButton.disabled = true;
+            generateClueButton.disabled = true;
+        }
+
+        // --- Core Game Loop ---
+        function gameLoop() {
+            if (!video.videoWidth) {
+                requestAnimationFrame(gameLoop);
+                return;
+            }
+
+            // 1. Draw the video frame onto the canvas
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // 2. Apply Glitch Effect (Simulated via image data manipulation)
+            if (!isClueMode) {
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    // Small random noise (darker pixels for grain)
+                    if (Math.random() < 0.01) { 
+                        data[i] = Math.max(0, data[i] - 50); 
+                        data[i + 1] = Math.max(0, data[i + 1] - 50); 
+                        data[i + 2] = Math.max(0, data[i + 2] - 50); 
+                    }
+                }
+                ctx.putImageData(imageData, 0, 0);
+            }
+            
+            // 3. Draw Clue Overlay if in Clue Mode
+            if (isClueMode) {
+                // Enhance the spooky filter dynamically in Clue Mode
+                canvas.style.filter = 'grayscale(100%) contrast(300%) hue-rotate(180deg)'; // Hyper-distorted
+                
+                // Draw the Hidden Clue Text (now dynamic)
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.9)'; // Bright Red Clue
+                ctx.shadowColor = 'red';
+                ctx.shadowBlur = 10;
+                ctx.font = 'bold 32px monospace'; // Slightly smaller font for long clues
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // Use the dynamically generated clue text
+                const clueText = currentClue;
+                
+                // Handle wrapping for long clues
+                const words = clueText.split(' ');
+                const maxWidth = canvas.width * 0.8;
+                let line = '';
+                const lines = [];
+                
+                // Simple text wrapping logic
+                for (let n = 0; n < words.length; n++) {
+                    const testLine = line + words[n] + ' ';
+                    const metrics = ctx.measureText(testLine);
+                    const testWidth = metrics.width;
+                    if (testWidth > maxWidth && n > 0) {
+                        lines.push(line);
+                        line = words[n] + ' ';
+                    } else {
+                        line = testLine;
+                    }
+                }
+                lines.push(line);
+
+                const lineHeight = 40;
+                let y = canvas.height / 2 - (lines.length / 2) * lineHeight;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const offsetX = Math.random() * 10 - 5;
+                    const offsetY = Math.random() * 10 - 5;
+                    ctx.fillText(lines[i], canvas.width / 2 + offsetX, y + offsetY);
+                    y += lineHeight;
+                }
+                
+                // Draw a flashing border or indicator
+                if (Math.random() < 0.5) {
+                    ctx.strokeStyle = 'red';
+                    ctx.lineWidth = 5;
+                    ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+                }
+
+            } else {
+                // Reset filter for normal view
+                canvas.style.filter = 'grayscale(100%) contrast(150%)'; 
+            }
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        // --- LLM Feature 1: Dynamic Clue Generation (Text) ---
+        async function generateMysteryClue() {
+            generateClueButton.disabled = true;
+            scanButton.disabled = true;
+            clueLoadingEl.classList.remove('hidden');
+            
+            // Possible themes/locations for a school ARG
+            const themes = ["library archives", "old chemistry lab", "janitor's closet", "boiler room access", "empty auditorium", "behind the trophy case", "faculty lounge fridge"];
+            const theme = themes[Math.floor(Math.random() * themes.length)];
+
+            const systemPrompt = "You are an ancient, corrupted AI transmitting fragmented data. Generate a single, extremely cryptic and unsettling scavenger hunt clue (10-15 words max) related to a 'school ARG' and the theme provided. The clue must sound like a corrupted data transmission. Do not use the words 'clue' or 'theme'.";
+            const userQuery = `Generate a cryptic message about the location: ${theme}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                const response = await fetchWithBackoff(textApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const generatedText = result?.candidates?.[0]?.content?.parts?.[0]?.text || "ERROR: SIGNAL LOST.";
+                
+                // Update both the visual clue and the audio warning text
+                currentClue = generatedText.toUpperCase(); // Ensure uppercase for that scanner look
+                currentWarning = `New signal detected. Origin point: ${theme}.`;
+                
+                statusEl.textContent = 'Status: New Clue Generated. Proceed with caution.';
+
+            } catch (error) {
+                console.error("Gemini Text API Error:", error);
+                currentClue = "!!! SIGNAL CORRUPTION. TRY AGAIN. ERROR 404 !!!";
+                currentWarning = "Signal corruption detected.";
+                statusEl.textContent = 'Status: CLUE ERROR. Using fallback.';
+            } finally {
+                generateClueButton.disabled = false;
+                scanButton.disabled = false;
+                clueLoadingEl.classList.add('hidden');
+            }
+        }
+
+
+        // --- LLM Feature 2: Audio Jumpscare/Warning (TTS) ---
+        async function playTTSWarning() {
+            const textToSpeak = currentWarning; 
+
+            // Use a firm voice and request a whisper/eerie tone
+            const ttsPayload = {
+                contents: [{
+                    parts: [{ text: `Say in a fast, low, heavily filtered, and slightly glitching whisper: ${textToSpeak}` }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Kore" } 
+                        }
+                    }
+                },
+            };
+
+            try {
+                const response = await fetchWithBackoff(ttsApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ttsPayload)
+                });
+                const result = await response.json();
+                
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const match = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = match ? parseInt(match[1], 10) : 24000;
+                    
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    const audio = new Audio(audioUrl);
+                    audio.play().catch(e => console.error("Audio play failed:", e));
+
+                } else {
+                    console.warn("TTS API did not return valid audio data.");
+                }
+            } catch (error) {
+                console.error("Gemini TTS API Error:", error);
+            }
+        }
+
+
+        // --- Event Handlers ---
+
+        function triggerClueMode() {
+            if (isClueMode) return;
+            
+            // Play the TTS warning immediately
+            playTTSWarning(); 
+            
+            isClueMode = true;
+            scanButton.disabled = true;
+            generateClueButton.disabled = true; // Disable LLM feature while scanning
+            scanButton.textContent = 'SIGNAL DETECTED... WARNING!';
+            statusEl.textContent = 'Status: CLUE ACTIVE! MEMORIZE!';
+
+            // Clue is visible for 5 seconds
+            clueTimer = setTimeout(() => {
+                isClueMode = false;
+                scanButton.disabled = false;
+                generateClueButton.disabled = false; // Re-enable LLM feature
+                scanButton.textContent = 'SCAN FOR CLUES';
+                statusEl.textContent = 'Status: Active Feed. Standby.';
+            }, 5000); // Clue lasts 5 seconds
+        }
+
+        scanButton.addEventListener('click', triggerClueMode);
+        generateClueButton.addEventListener('click', generateMysteryClue);
+        
+        // --- Initialization ---
+        window.onload = setupCamera;
+        window.onbeforeunload = stopCamera;
+
+    </script>
 </body>
 </html>
